@@ -1,0 +1,86 @@
+$background: #5D9CEC;
+$text: #FFFFFF;
+.card {
+    border-radius: 1rem;
+    position: relative;
+    height:12rem;
+    box-shadow:0 0 2rem -1rem rgba(0,0,0,.05);
+    background:#FFFFFF;
+    .multi-button {
+        z-index:0;
+        position: absolute;
+        top:1.25rem;
+        left:1.25rem;
+        border-radius:100%;
+        width:0rem;
+        height:0rem;
+        transform: translate(-50%, -50%);
+        transition: .25s cubic-bezier(0.25, 0, 0, 1);
+        button {
+            display: grid;
+            place-items: center;
+            position: absolute;
+            width: 2rem;
+            height: 2rem;
+            border: none;
+            border-radius: 100%;
+            background: $background;
+            color: $text;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            transition: .25s cubic-bezier(0.25, 0, 0, 1);
+            box-shadow:0 0 0rem -.25rem $background;
+            &:hover {
+                background: $text;
+                color: $background;
+                box-shadow:0 0 1rem -.25rem $background;
+            }
+            &:first-child:nth-last-child(1),
+            &:first-child:nth-last-child(1) ~ * { //If there is 1 child
+                &:nth-child(1) {
+                    left:25%;
+                    top:25%;
+                }
+            }
+            &:first-child:nth-last-child(2),
+            &:first-child:nth-last-child(2) ~ * { //If there are 2 children
+                &:nth-child(1) {
+                    left:37.5%;
+                    top:18.75%;
+                }
+                &:nth-child(2) {
+                    left:18.75%;
+                    top:37.5%;
+                }
+            }
+            &:first-child:nth-last-child(3),
+            &:first-child:nth-last-child(3) ~ * { //If there are 3 children
+                &:nth-child(1) {
+                    left:50%;
+                    top:25%;
+                    //top:15.625%;
+                }
+                &:nth-child(2) {
+                    left:25%;
+                    top:25%;
+                }
+                &:nth-child(3) {
+                    top:50%;
+                    left:25%;
+                    //left:15.625%;
+                }
+            }
+        }
+    }
+    .container {
+        position: absolute;
+        border-radius:1rem;
+        background: $background;
+        color: $text;
+        padding: 1em;
+    }
+    &:hover .multi-button, .multi-button:focus-within { //Hover or a button inside is focused
+        width:10rem;
+        height:10rem;
+    }
+}
