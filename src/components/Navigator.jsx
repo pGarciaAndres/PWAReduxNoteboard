@@ -4,6 +4,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import TrashIcon from '@material-ui/icons/Delete';
 import styled from 'styled-components';
 
+const DefaultColor = '#5D9CEC';
+const DefaultTextColor = '#FFFFFF';
 const NavContainer = styled.div`
     float: left;
     width: 180px;
@@ -28,8 +30,8 @@ const NavContainer = styled.div`
 `;
 
 const Item = styled.div`
-    background: #5d9cec;
-    color: white;
+    background: ${DefaultColor};
+    color: ${DefaultTextColor};
     text-align: left;
     border-radius: 0 25px 25px 0;
     padding: 10px 20px 8px 0;

@@ -4,12 +4,12 @@ import styled from 'styled-components';
 
 const CreateContainer = styled.div`
     width: 95%;
-    @media (max-width: 800px) {
-        width: 85%;
+    @media (max-width: 575px) {
+        width: 360px;
     }
     max-width: 600px;
     text-align: left;
-    margin: 60px auto 16px auto;
+    margin: 60px auto 25px auto;
     @media (max-width: 800px) {
         margin-top: 15px;
     }
