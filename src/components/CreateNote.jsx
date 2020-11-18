@@ -16,7 +16,7 @@ const CreateContainer = styled.div`
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     box-shadow: 0 3px 5px rgba(0,0,0,0.20);
-    .input {
+    .field {
         width: -webkit-fill-available;
         max-width: 94%;
         padding: 10px 15px;
@@ -24,9 +24,11 @@ const CreateContainer = styled.div`
         outline: none;
         border-radius: 8px;
         font-size: 15px;
-    }
-    .input:first-child {
         font-weight: 600;
+    }
+    .textarea {
+        font-weight: normal;
+        resize: none;
     }
 `;
 const Actions = styled.div`
@@ -64,8 +66,8 @@ const CreateNote = props => {
 
     return (
         <CreateContainer>
-            <input className="input" placeholder="Title" ref={title}/>
-            <textarea className="input" placeholder="Take a note..." ref={description}/>
+            <input className="field" placeholder="Title" ref={title}/>
+            <textarea className="field textarea" placeholder="Take a note..." ref={description}/>
             <Actions>
                 <FavIcon className="fav" />
                 <button onClick={() => props.addNote(title.current.value, description.current.value)}>Create</button>

@@ -35,7 +35,17 @@ const App = () => {
     setNotes(newNotes);
     localStorage.setItem(NOTES_LOCAL_STORAGE, JSON.stringify(newNotes));
   }
-  
+
+  // Edit note
+  const editNote = (noteId, title, description) => {
+    console.log(noteId);
+    const newNotes = [...notes];
+    const indexToEdit = newNotes.findIndex(note => note.id === noteId);
+    newNotes[indexToEdit] = {...newNotes[indexToEdit], title, description};
+    setNotes(newNotes);
+    localStorage.setItem(NOTES_LOCAL_STORAGE, JSON.stringify(newNotes));
+  }
+
   // Remove note
   const removeNote = (noteId) => {
     const newNotes = [...notes];
@@ -50,7 +60,7 @@ const App = () => {
       <Navigator/>
       <Dashboard>
         <CreateNote addNote={addNote}/>
-        <Notes notes={notes} removeNote={removeNote}/>
+        <Notes notes={notes} editNote={editNote} removeNote={removeNote}/>
       </Dashboard>
     </AppContainer>
   );

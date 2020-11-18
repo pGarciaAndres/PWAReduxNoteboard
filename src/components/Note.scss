@@ -13,6 +13,7 @@ $DefaultTextColor: #FFFFFF;
         transform: translate(-50%, -50%);
         transition: .25s cubic-bezier(0.25, 0, 0, 1);
         button {
+            outline: none;
             display: grid;
             place-items: center;
             position: absolute;
@@ -26,6 +27,24 @@ $DefaultTextColor: #FFFFFF;
             cursor: pointer;
             transition: .25s cubic-bezier(0.25, 0, 0, 1);
             box-shadow:0 0 0rem -.25rem $DefaultColor;
+            &:disabled {
+                cursor: auto;
+                background: lightsteelblue;
+                color: white;
+                &:hover {
+                    background: lightsteelblue;
+                    color: white;
+                    box-shadow: none;
+                }
+            }
+            &.confirm {
+                background: mediumseagreen;
+                &:hover {
+                    background: mediumseagreen;
+                    color: white;
+                    box-shadow: 0 0 1rem -0.25rem mediumseagreen;
+                }
+            }
             &:hover {
                 background: $DefaultTextColor;
                 color: $DefaultColor;

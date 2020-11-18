@@ -11,9 +11,12 @@ const options = {
 
 const Notes = props => {
     return (
-        <Mansory style={ContainerStyle} options={options}>
+        <Mansory enableResizableChildren style={ContainerStyle} options={options}>
             {props.notes.map((note, index) =>
-                <Note key={`note ${note.id}`} note={note} removeNote={props.removeNote}/>
+                <Note key={`note ${note.id}`} 
+                note={note} 
+                editNote={props.editNote}
+                removeNote={props.removeNote}/>
             )}
         </Mansory>
     )
