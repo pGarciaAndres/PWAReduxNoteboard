@@ -4,12 +4,9 @@ import styled from 'styled-components';
 
 const CreateContainer = styled.div`
     width: 95%;
-    @media (max-width: 575px) {
-        width: 360px;
-    }
     max-width: 600px;
     text-align: left;
-    margin: 60px auto 25px auto;
+    margin: 60px auto 10px auto;
     @media (max-width: 800px) {
         margin-top: 15px;
     }
@@ -47,6 +44,9 @@ const Actions = styled.div`
         border: none;
         border-bottom-right-radius: 8px;
         padding: 5px 30px 6px 180px;
+        @media (max-width: 575px) {
+            padding-left: 100px;
+        }
         font-size: 15px;
         outline: none;
     }

@@ -10,8 +10,11 @@ const Card = styled.div`
     width: 240px;
     margin: 20px;
     @media (max-width: 575px) {
-        width: 360px;
-}`;
+        width: 320px;
+    }
+    @media (max-width: 400px) {
+        width: 260px;
+    }`;
 
 const CardContent = styled.div`
     position: relative;

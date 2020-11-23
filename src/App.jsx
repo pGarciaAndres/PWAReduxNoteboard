@@ -9,7 +9,7 @@ const AppContainer = styled.div`
 `
 const Dashboard = styled.div`
   float: left;
-  width: calc(100% - 200px);
+  width: 100%;
   
   @media (max-width: 800px) {
     width: 100%;
@@ -38,7 +38,6 @@ const App = () => {
 
   // Edit note
   const editNote = (noteId, title, description) => {
-    console.log(noteId);
     const newNotes = [...notes];
     const indexToEdit = newNotes.findIndex(note => note.id === noteId);
     newNotes[indexToEdit] = {...newNotes[indexToEdit], title, description};

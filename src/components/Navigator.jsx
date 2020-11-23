@@ -1,70 +1,58 @@
-import React from 'react';
-import NotesIcon from '@material-ui/icons/Comment';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import TrashIcon from '@material-ui/icons/Delete';
+import React, { useState } from 'react';
+import { faBars, faStickyNote, faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from 'styled-components';
+import './Navigator.scss';
 
-const DefaultColor = '#5D9CEC';
-const DefaultTextColor = '#FFFFFF';
 const NavContainer = styled.div`
-    float: left;
-    width: 180px;
-    margin-top: 30px;
-    margin-right: 20px;
-
-    @media (max-width: 800px) {
-        margin-top: 0px;
-    }
-
-    svg {
-        padding-left: 10px;
-        float: right;
-        font-size: 2rem;
-    }
-    h2 {
-        display: inline-block;
-        vertical-align: super;
-        padding: 0px 10px;
-        margin: 0;
+    position: fixed;
+    top: auto;
+    right: 7.25em;
+    bottom: 6.5em;
+    z-index: 1;
+    @media only screen and (min-width: 768px) {
+        top: 1em;
+        right: 8em;
     }
 `;
 
-const Item = styled.div`
-    background: ${DefaultColor};
-    color: ${DefaultTextColor};
-    text-align: left;
-    border-radius: 0 25px 25px 0;
-    padding: 10px 20px 8px 0;
-    margin-top: 3px;
+const Button = styled.button`
+    position: absolute;
+    z-index: 2;
+    font-size: 3em;
+    height: 2em;
+    width: 2em;
+    border-radius: 50%;
     cursor: pointer;
-    width: 155px;
-    transition: transform 0.5s;
-    transform: translate(-117px);
-    &:first-child {
-        transform: translate(0px);
-    }
-    &:hover {
-        transform: translate(0px);
-    }
+    border: none;
+    background: #344458;
+    color: white;
+    outline: none;
+    padding: 0;
 `;
+
 
 const Navigator = props => {
+    const [menu, changeMenu] = useState(false);
+
     return (
-        <NavContainer>
-            <Item>
-                <h2>Notes</h2>
-                <NotesIcon />
-            </Item>
-            <Item>
-                <h2>Favorite</h2>
-                <FavoriteIcon />
-            </Item>
-            <Item>
-                <h2>Trash</h2>
-                <TrashIcon />
-            </Item>
+        <NavContainer className="nav">
+            <Button onClick={() => changeMenu(!menu)}>
+                <FontAwesomeIcon icon={faBars} />
+            </Button>
+            {menu && <div className="multi-button">
+                <button>
+                    <FontAwesomeIcon icon={faHeart} />
+                </button>
+                <button>
+                    <FontAwesomeIcon icon={faStickyNote} />
+                </button>
+                <button>
+                    <FontAwesomeIcon icon={faTrash} />
+                </button>
+            </div>}
         </NavContainer>
     )
 }
-
+    
 export default Navigator
