@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navigator from './components/Navigator.jsx';
+import Navigator from './components/Navigator/Navigator.jsx';
 import CreateNote from './components/CreateNote.jsx';
 import Notes from './components/Notes.jsx';
 import styled from 'styled-components';
