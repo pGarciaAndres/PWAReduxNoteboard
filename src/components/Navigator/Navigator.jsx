@@ -15,8 +15,8 @@ const NavContainer = styled.div`
         right: 8em;
     }
 `;
-
 const Button = styled.button`
+    opacity: 0.8;
     position: absolute;
     z-index: 2;
     font-size: 3em;
@@ -30,7 +30,6 @@ const Button = styled.button`
     outline: none;
     padding: 0;
 `;
-
 
 const Navigator = props => {
     const [menu, changeMenu] = useState(false);

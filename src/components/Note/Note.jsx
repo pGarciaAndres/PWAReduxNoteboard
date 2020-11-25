@@ -15,7 +15,6 @@ const Card = styled.div`
     @media (max-width: 400px) {
         width: 260px;
     }`;
-
 const CardContent = styled.div`
     position: relative;
     background: ${DefaultColor};
@@ -40,7 +39,6 @@ const CardContent = styled.div`
         font-weight: normal;
     }
 `;
-
 const Footer = styled.div`
     font-size: 12px;
     text-align: right;

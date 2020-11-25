@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navigator from './components/Navigator/Navigator.jsx';
 import CreateNote from './components/CreateNote.jsx';
 import Notes from './components/Notes.jsx';
 import styled from 'styled-components';
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { addNoteAction, updateNotesAction } from './store/actions';
 
 const AppContainer = styled.div`
   text-align: center;
@@ -20,11 +23,10 @@ const App = () => {
   // Data storage
   const localStorage = window.localStorage;
   const NOTES_LOCAL_STORAGE = 'NOTES_STORAGE';
-  
-  // Note list 
-  const storage = localStorage.getItem(NOTES_LOCAL_STORAGE);
-  const initNotes = storage ? JSON.parse(storage) : [];
-  const [notes, setNotes] = useState(initNotes);
+
+  // Redux
+  const notes = useSelector(state => state.notes);
+  const dispatch = useDispatch();
 
   // Add note
   const addNote = (title, description) => {
@@ -32,8 +34,8 @@ const App = () => {
     const date = new Date().toLocaleDateString('en-GB', { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
     const newOne = {id: nexId, title, description, date };
     const newNotes = [newOne, ...notes];
-    setNotes(newNotes);
     localStorage.setItem(NOTES_LOCAL_STORAGE, JSON.stringify(newNotes));
+    dispatch(addNoteAction(newOne));
   }
 
   // Edit note
@@ -41,8 +43,8 @@ const App = () => {
     const newNotes = [...notes];
     const indexToEdit = newNotes.findIndex(note => note.id === noteId);
     newNotes[indexToEdit] = {...newNotes[indexToEdit], title, description};
-    setNotes(newNotes);
     localStorage.setItem(NOTES_LOCAL_STORAGE, JSON.stringify(newNotes));
+    dispatch(updateNotesAction(newNotes));
   }
 
   // Remove note
@@ -50,8 +52,8 @@ const App = () => {
     const newNotes = [...notes];
     const indexToRemove = newNotes.findIndex(note => note.id === noteId);
     newNotes.splice(indexToRemove, 1);
-    setNotes(newNotes);
     localStorage.setItem(NOTES_LOCAL_STORAGE, JSON.stringify(newNotes));
+    dispatch(updateNotesAction(newNotes));
   }
 
   return (
@@ -59,7 +61,7 @@ const App = () => {
       <Navigator/>
       <Dashboard>
         <CreateNote addNote={addNote}/>
-        <Notes notes={notes} editNote={editNote} removeNote={removeNote}/>
+        <Notes editNote={editNote} removeNote={removeNote}/>
       </Dashboard>
     </AppContainer>
   );
