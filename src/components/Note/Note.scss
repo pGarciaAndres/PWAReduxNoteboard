@@ -1,0 +1,94 @@
+$DefaultColor: #5D9CEC;
+$DefaultTextColor: #FFFFFF;
+
+.card {
+    .multi-button {
+        z-index:0;
+        position: absolute;
+        top:1.25rem;
+        left:1.25rem;
+        border-radius:100%;
+        width:0rem;
+        height:0rem;
+        transform: translate(-50%, -50%);
+        transition: .25s cubic-bezier(0.25, 0, 0, 1);
+        button {
+            outline: none;
+            display: grid;
+            place-items: center;
+            position: absolute;
+            width: 2rem;
+            height: 2rem;
+            border: none;
+            border-radius: 100%;
+            background: $DefaultColor;
+            color: $DefaultTextColor;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            transition: .25s cubic-bezier(0.25, 0, 0, 1);
+            box-shadow:0 0 0rem -.25rem $DefaultColor;
+            &:disabled {
+                cursor: auto;
+                background: lightsteelblue;
+                color: white;
+                &:hover {
+                    background: lightsteelblue;
+                    color: white;
+                    box-shadow: none;
+                }
+            }
+            &.confirm {
+                background: mediumseagreen;
+                &:hover {
+                    background: mediumseagreen;
+                    color: white;
+                    box-shadow: 0 0 1rem -0.25rem mediumseagreen;
+                }
+            }
+            &:hover {
+                background: $DefaultTextColor;
+                color: $DefaultColor;
+                box-shadow:0 0 1rem -.25rem $DefaultColor;
+            }
+            &:first-child:nth-last-child(1),
+            &:first-child:nth-last-child(1) ~ * { //1 Options
+                &:nth-child(1) {
+                    left:25%;
+                    top:25%;
+                }
+            }
+            &:first-child:nth-last-child(2),
+            &:first-child:nth-last-child(2) ~ * { //2 Options
+                &:nth-child(1) {
+                    left:37.5%;
+                    top:18.75%;
+                }
+                &:nth-child(2) {
+                    left:18.75%;
+                    top:37.5%;
+                }
+            }
+            &:first-child:nth-last-child(3),
+            &:first-child:nth-last-child(3) ~ * { //3 Options
+                &:nth-child(1) {
+                    left:50%;
+                    top:25%;
+                    //top:15.625%;
+                }
+                &:nth-child(2) {
+                    left:25%;
+                    top:25%;
+                }
+                &:nth-child(3) {
+                    top:50%;
+                    left:25%;
+                    //left:15.625%;
+                }
+            }
+        }
+    }
+    &:hover .multi-button, .multi-button:focus-within {
+        width:10rem;
+        height:10rem;
+    }
+}
