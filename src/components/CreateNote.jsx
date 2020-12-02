@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import TextCounter from './TextCounter.jsx';
 import FavIcon from '@material-ui/icons/Favorite';
+import Chip from '@material-ui/core/Chip';
 import styled from 'styled-components';
 
 const CreateContainer = styled.div`
@@ -17,7 +18,7 @@ const CreateContainer = styled.div`
     box-shadow: 0 3px 5px rgba(0,0,0,0.20);
     .field {
         width: -webkit-fill-available;
-        max-width: 94%;
+        max-width: 100%;
         padding-bottom: 10px;
         border: 0;
         outline: none;
@@ -25,35 +26,49 @@ const CreateContainer = styled.div`
         font-size: 15px;
         font-weight: 600;
         &.textarea {
+            display: block;
             font-weight: normal;
             resize: none;
-            overflow: hidden;
+            height: 20px;
+            padding-bottom: 0;
         }
     }
+    .backstage {
+        display: none;
+    }
+    &:focus-within .backstage {
+        display: block;
+    }
+    &:focus-within .textarea {
+        height: 60px;
+        padding-bottom: 10px;
+    }
 `;
-const Actions = styled.div`
+const Footer = styled.div`
     text-align: left;
     svg {
         cursor: pointer;
-    }
-    svg.fav:hover {
-        color: red;
+        &.fav {
+            color: #f50057;
+        }
     }
     button {
+        line-height: 1.25rem;
+        height: 32px;
+        padding: 0px 20px;
+        border-radius: 4px;
         cursor: pointer;
         float: right;
         background-color: white;
         border: none;
-        border-bottom-right-radius: 8px;
-        padding: 5px 0px 6px 180px;
-        @media (max-width: 575px) {
-            padding-left: 100px;
-        }
         font-size: 15px;
         outline: none;
     }
     button:hover {
-        background-image: linear-gradient(to right, white, rgb(98 168 255 / 13%));
+        background: rgba(95,99,104,0.039);
+    }
+    button:active {
+        background: rgba(95,99,104,0.161)!important;
     }
 `;
 
@@ -62,28 +77,31 @@ const CreateNote = props => {
     const description = useRef(null);
     const maxCounter = 200;
     const [textCounter, setTextCounter] = useState(0);
+    const [fav, setFav] = useState(false);
 
     const addNote = () => {
-        props.addNote(title.current.value, description.current.value);
+        props.addNote(title.current.value, description.current.value, fav);
+        document.activeElement.blur();
         title.current.value = '';
         description.current.value = '';
         setTextCounter(0);
+        setFav(false);
     }
 
     return (
         <CreateContainer>
-            <input className="field" placeholder="Title" ref={title}/>
+            <input className="backstage field" placeholder="Title" ref={title}/>
             <textarea ref={description}
             className="field textarea"
             placeholder="Take a note..."
             maxLength={maxCounter}
             onChange={() => setTextCounter(description.current.value.length)}/>
-            <TextCounter textCounter={textCounter} maxCounter={maxCounter}/>
 
-            <Actions>
-                <FavIcon className="fav" />
+            <Footer className="backstage">
+                <TextCounter textCounter={textCounter} maxCounter={maxCounter}/>
+                <Chip icon={<FavIcon />} label="Favorite" clickable color={fav ? "secondary" : "default"} onClick={() => setFav(!fav)}/>
                 <button onClick={() => addNote()}>Create</button>
-            </Actions>
+            </Footer>
         </CreateContainer>
     )
 }

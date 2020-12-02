@@ -29,26 +29,26 @@ const App = () => {
   const dispatch = useDispatch();
 
   // Add note
-  const addNote = (title, description) => {
+  const addNote = (title, description, fav) => {
     const nexId = notes.length ? Math.max.apply(null, notes.map(c => c.id)) + 1 : 1;
     const date = new Date().toLocaleDateString('en-GB', { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
-    const newOne = {id: nexId, title, description, date };
+    const newOne = {id: nexId, title, description, date, fav };
     const newNotes = [newOne, ...notes];
     localStorage.setItem(NOTES_LOCAL_STORAGE, JSON.stringify(newNotes));
     dispatch(addNoteAction(newOne));
   }
 
   // Edit note
-  const editNote = (noteId, title, description) => {
+  const editNote = (noteId, title, description, fav) => {
     const newNotes = [...notes];
     const indexToEdit = newNotes.findIndex(note => note.id === noteId);
-    newNotes[indexToEdit] = {...newNotes[indexToEdit], title, description};
+    newNotes[indexToEdit] = {...newNotes[indexToEdit], title, description, fav};
     localStorage.setItem(NOTES_LOCAL_STORAGE, JSON.stringify(newNotes));
     dispatch(updateNotesAction(newNotes));
   }
 
   // Remove note
-  const removeNote = (noteId) => {
+  const removeNote = noteId => {
     const newNotes = [...notes];
     const indexToRemove = newNotes.findIndex(note => note.id === noteId);
     newNotes.splice(indexToRemove, 1);
