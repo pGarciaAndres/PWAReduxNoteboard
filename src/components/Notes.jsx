@@ -3,6 +3,7 @@ import Note from './Note/Note.jsx';
 import styled from 'styled-components';
 import Mansory from 'react-masonry-component';
 import { useSelector } from "react-redux";
+import * as constants from '../constants';
 
 const NotesContainer = styled.div`
     width: 100%;
@@ -50,9 +51,9 @@ const Notes = props => {
 
     return (
         <NotesContainer>
-            {favNotes.length > 0 && <SectionHeadline>FAVORITES</SectionHeadline>}
+            {favNotes.length > 0 && <SectionHeadline>{constants.FAVORITES_LABEL}</SectionHeadline>}
             {renderNotes(favNotes)}
-            {favNotes.length > 0 && normalNotes.length > 0 && <SectionHeadline>OTHERS</SectionHeadline>}
+            {favNotes.length > 0 && normalNotes.length > 0 && <SectionHeadline>{constants.OTHERS_LABEL}</SectionHeadline>}
             {renderNotes(normalNotes)}
         </NotesContainer>
     )

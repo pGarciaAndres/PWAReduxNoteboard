@@ -3,6 +3,7 @@ import Navigator from './components/Navigator/Navigator.jsx';
 import CreateNote from './components/CreateNote.jsx';
 import Notes from './components/Notes.jsx';
 import styled from 'styled-components';
+import * as constants from './constants';
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { addNoteAction, updateNotesAction } from './store/actions';
@@ -22,7 +23,7 @@ const Dashboard = styled.div`
 const App = () => {
   // Data storage
   const localStorage = window.localStorage;
-  const NOTES_LOCAL_STORAGE = 'NOTES_STORAGE';
+  const NOTES_LOCAL_STORAGE = constants.NOTES_LOCAL_STORAGE;
 
   // Redux
   const notes = useSelector(state => state.notes);

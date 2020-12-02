@@ -4,6 +4,7 @@ import { faHeart, faCheck, faPen, faTrash } from "@fortawesome/free-solid-svg-ic
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from 'styled-components';
 import './Note.scss';
+import * as constants from '../../constants';
 
 const DefaultColor = '#5D9CEC';
 const DefaultTextColor = '#FFFFFF';
@@ -70,8 +71,6 @@ const Note = props => {
     const [editable, setEditable] = useState(false);
     const title = useRef('');
     const description = useRef('');
-
-    const maxCounter = 200;
     const [textCounter, setTextCounter] = useState(props.note.description.length);
 
     const makeNoteEditable = () => {
@@ -118,9 +117,9 @@ const Note = props => {
                         ref={description} 
                         defaultValue={props.note.description}
                         rows={props.note.description.length/15}
-                        maxLength={maxCounter}
+                        maxLength={constants.MAX_LIMIT_CHARACTERS}
                         onChange={() => setTextCounter(description.current.value.length)}/>
-                        <TextCounter textCounter={textCounter} maxCounter={maxCounter}/>
+                        <TextCounter textCounter={textCounter}/>
                     </>
                 :
                     <>

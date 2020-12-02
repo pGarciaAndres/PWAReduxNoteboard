@@ -3,6 +3,7 @@ import TextCounter from './TextCounter.jsx';
 import FavIcon from '@material-ui/icons/Favorite';
 import Chip from '@material-ui/core/Chip';
 import styled from 'styled-components';
+import * as constants from '../constants';
 
 const CreateContainer = styled.div`
     width: 85%;
@@ -75,7 +76,6 @@ const Footer = styled.div`
 const CreateNote = props => {
     const title = useRef(null);
     const description = useRef(null);
-    const maxCounter = 200;
     const [textCounter, setTextCounter] = useState(0);
     const [fav, setFav] = useState(false);
 
@@ -94,11 +94,11 @@ const CreateNote = props => {
             <textarea ref={description}
             className="field textarea"
             placeholder="Take a note..."
-            maxLength={maxCounter}
+            maxLength={constants.MAX_LIMIT_CHARACTERS}
             onChange={() => setTextCounter(description.current.value.length)}/>
 
             <Footer className="backstage">
-                <TextCounter textCounter={textCounter} maxCounter={maxCounter}/>
+                <TextCounter textCounter={textCounter}/>
                 <Chip icon={<FavIcon />} label="Favorite" clickable color={fav ? "secondary" : "default"} onClick={() => setFav(!fav)}/>
                 <button onClick={() => addNote()}>Create</button>
             </Footer>
