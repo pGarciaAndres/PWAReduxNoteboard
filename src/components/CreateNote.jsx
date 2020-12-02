@@ -1,12 +1,14 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
+import TextCounter from './TextCounter.jsx';
 import FavIcon from '@material-ui/icons/Favorite';
 import styled from 'styled-components';
 
 const CreateContainer = styled.div`
-    width: 95%;
+    width: 85%;
     max-width: 600px;
     text-align: left;
     margin: 60px auto 10px auto;
+    padding: 10px 15px;
     @media (max-width: 800px) {
         margin-top: 15px;
     }
@@ -16,22 +18,22 @@ const CreateContainer = styled.div`
     .field {
         width: -webkit-fill-available;
         max-width: 94%;
-        padding: 10px 15px;
+        padding-bottom: 10px;
         border: 0;
         outline: none;
         border-radius: 8px;
         font-size: 15px;
         font-weight: 600;
-    }
-    .textarea {
-        font-weight: normal;
-        resize: none;
+        &.textarea {
+            font-weight: normal;
+            resize: none;
+            overflow: hidden;
+        }
     }
 `;
 const Actions = styled.div`
     text-align: left;
     svg {
-        padding: 0 10px;
         cursor: pointer;
     }
     svg.fav:hover {
@@ -43,7 +45,7 @@ const Actions = styled.div`
         background-color: white;
         border: none;
         border-bottom-right-radius: 8px;
-        padding: 5px 30px 6px 180px;
+        padding: 5px 0px 6px 180px;
         @media (max-width: 575px) {
             padding-left: 100px;
         }
@@ -58,19 +60,29 @@ const Actions = styled.div`
 const CreateNote = props => {
     const title = useRef(null);
     const description = useRef(null);
-    
-    useEffect(() => {
+    const maxCounter = 200;
+    const [textCounter, setTextCounter] = useState(0);
+
+    const addNote = () => {
+        props.addNote(title.current.value, description.current.value);
         title.current.value = '';
         description.current.value = '';
-    });
+        setTextCounter(0);
+    }
 
     return (
         <CreateContainer>
             <input className="field" placeholder="Title" ref={title}/>
-            <textarea className="field textarea" placeholder="Take a note..." ref={description}/>
+            <textarea ref={description}
+            className="field textarea"
+            placeholder="Take a note..."
+            maxLength={maxCounter}
+            onChange={() => setTextCounter(description.current.value.length)}/>
+            <TextCounter textCounter={textCounter} maxCounter={maxCounter}/>
+
             <Actions>
                 <FavIcon className="fav" />
-                <button onClick={() => props.addNote(title.current.value, description.current.value)}>Create</button>
+                <button onClick={() => addNote()}>Create</button>
             </Actions>
         </CreateContainer>
     )

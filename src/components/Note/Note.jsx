@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import TextCounter from '../TextCounter.jsx';
 import { faHeart, faCheck, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from 'styled-components';
@@ -34,6 +35,11 @@ const CardContent = styled.div`
         border-radius: 8px;
         font-size: 15px;
         height: auto;
+        &.textarea {
+            margin-bottom: 0;
+            resize: none;
+            overflow: hidden;
+        }
     }
     h4 {
         font-weight: normal;
@@ -44,12 +50,16 @@ const Footer = styled.div`
     text-align: right;
     opacity: 0.8;
     font-weight: 100;
+    margin-top: 10px;
 `;
 
 const Note = props => {
     const [editable, setEditable] = useState(false);
     const title = useRef('');
     const description = useRef('');
+    
+    const maxCounter = 200;
+    const [textCounter, setTextCounter] = useState(props.note.description.length);
 
     const makeNoteEditable = () => {
         if(editable) {
@@ -88,7 +98,10 @@ const Note = props => {
                         placeholder="Take a note..." 
                         ref={description} 
                         defaultValue={props.note.description}
-                        rows={props.note.description.length/15}/>
+                        rows={props.note.description.length/15}
+                        maxLength={maxCounter}
+                        onChange={() => setTextCounter(description.current.value.length)}/>
+                        <TextCounter textCounter={textCounter} maxCounter={maxCounter}/>
                     </>
                 :
                     <>
