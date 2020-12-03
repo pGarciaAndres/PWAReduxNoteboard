@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from 'styled-components';
 import './Note.scss';
 import * as constants from '../../constants';
+import ReactMarkdown from 'react-markdown';
+import emoji from 'remark-emoji';
 
 const DefaultColor = '#5D9CEC';
 const DefaultTextColor = '#FFFFFF';
@@ -124,7 +126,7 @@ const Note = props => {
                 :
                     <>
                         <h3><span>{props.note.title}</span></h3>
-                        <h4><span>{props.note.description}</span></h4>
+                        <ReactMarkdown children={props.note.description} plugins={[emoji]}/>
                     </>
                 }
                 <Footer>{props.note.date}</Footer>

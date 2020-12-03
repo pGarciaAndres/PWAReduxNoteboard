@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import TextCounter from './TextCounter.jsx';
 import FavIcon from '@material-ui/icons/Favorite';
 import Chip from '@material-ui/core/Chip';
+import MarkdownToolbar from './MarkdownToolbar.jsx';
 import styled from 'styled-components';
 import * as constants from '../constants';
 
@@ -54,12 +55,17 @@ const Footer = styled.div`
         }
     }
     button {
+        &.create {
+            float: right;
+            @media (max-width: 575px) {
+                padding: 0px 10px;
+            }
+        }
         line-height: 1.25rem;
         height: 32px;
         padding: 0px 20px;
         border-radius: 4px;
         cursor: pointer;
-        float: right;
         background-color: white;
         border: none;
         font-size: 15px;
@@ -91,7 +97,8 @@ const CreateNote = props => {
     return (
         <CreateContainer>
             <input className="backstage field" placeholder="Title" ref={title}/>
-            <textarea ref={description}
+            <textarea id="textarea_id"
+            ref={description}
             className="field textarea"
             placeholder="Take a note..."
             maxLength={constants.MAX_LIMIT_CHARACTERS}
@@ -100,7 +107,8 @@ const CreateNote = props => {
             <Footer className="backstage">
                 <TextCounter textCounter={textCounter}/>
                 <Chip icon={<FavIcon />} label="Favorite" clickable color={fav ? "secondary" : "default"} onClick={() => setFav(!fav)}/>
-                <button onClick={() => addNote()}>Create</button>
+                <MarkdownToolbar />
+                <button className="create" onClick={() => addNote()}>Create</button>
             </Footer>
         </CreateContainer>
     )
