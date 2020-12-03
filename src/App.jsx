@@ -1,5 +1,4 @@
 import React from 'react';
-import Navigator from './components/Navigator/Navigator.jsx';
 import CreateNote from './components/CreateNote.jsx';
 import Notes from './components/Notes.jsx';
 import styled from 'styled-components';
@@ -59,7 +58,6 @@ const App = () => {
 
   return (
     <AppContainer>
-      <Navigator/>
       <Dashboard>
         <CreateNote addNote={addNote}/>
         <Notes editNote={editNote} removeNote={removeNote}/>
