@@ -3,7 +3,7 @@ import Note from './Note/Note.jsx';
 import styled from 'styled-components';
 import Mansory from 'react-masonry-component';
 import { useSelector } from "react-redux";
-import * as constants from '../constants';
+import { EMPTY_LABEL, FAVORITES_LABEL, OTHERS_LABEL } from '../constants';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMugHot } from "@fortawesome/free-solid-svg-icons";
 
@@ -67,7 +67,7 @@ const Notes = props => {
     const renderEmpty = () => {
         return (
             <EmptyLayout>
-                {constants.EMPTY_LABEL}
+                {EMPTY_LABEL}
                 <FontAwesomeIcon icon={faMugHot} />
             </EmptyLayout>
         )
@@ -75,9 +75,9 @@ const Notes = props => {
 
     return (
         <NotesContainer>
-            {favNotes.length > 0 && <SectionHeadline>{constants.FAVORITES_LABEL}</SectionHeadline>}
+            {favNotes.length > 0 && <SectionHeadline>{FAVORITES_LABEL}</SectionHeadline>}
             {renderNotes(favNotes)}
-            {favNotes.length > 0 && normalNotes.length > 0 && <SectionHeadline>{constants.OTHERS_LABEL}</SectionHeadline>}
+            {favNotes.length > 0 && normalNotes.length > 0 && <SectionHeadline>{OTHERS_LABEL}</SectionHeadline>}
             {renderNotes(normalNotes)}
             {favNotes.length === 0 && normalNotes.length === 0 && renderEmpty()}
         </NotesContainer>

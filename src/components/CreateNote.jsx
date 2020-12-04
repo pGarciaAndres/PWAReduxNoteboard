@@ -4,7 +4,7 @@ import FavIcon from '@material-ui/icons/Favorite';
 import Chip from '@material-ui/core/Chip';
 import MarkdownToolbar from './MarkdownToolbar.jsx';
 import styled from 'styled-components';
-import * as constants from '../constants';
+import { MAX_LIMIT_CHARACTERS } from '../constants';
 
 const CreateContainer = styled.div`
     width: 85%;
@@ -101,7 +101,7 @@ const CreateNote = props => {
             ref={description}
             className="field textarea"
             placeholder="Take a note..."
-            maxLength={constants.MAX_LIMIT_CHARACTERS}
+            maxLength={MAX_LIMIT_CHARACTERS}
             onChange={() => setTextCounter(description.current.value.length)}/>
 
             <Footer className="backstage">

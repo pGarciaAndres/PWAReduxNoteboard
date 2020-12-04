@@ -4,7 +4,7 @@ import { faHeart, faCheck, faPen, faTrash } from "@fortawesome/free-solid-svg-ic
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from 'styled-components';
 import './Note.scss';
-import * as constants from '../../constants';
+import { MAX_LIMIT_CHARACTERS } from '../../constants';
 import ReactMarkdown from 'react-markdown';
 import emoji from 'remark-emoji';
 
@@ -119,7 +119,7 @@ const Note = props => {
                         ref={description} 
                         defaultValue={props.note.description}
                         rows={props.note.description.length/15}
-                        maxLength={constants.MAX_LIMIT_CHARACTERS}
+                        maxLength={MAX_LIMIT_CHARACTERS}
                         onChange={() => setTextCounter(description.current.value.length)}/>
                         <TextCounter textCounter={textCounter}/>
                     </>
