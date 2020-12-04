@@ -10,9 +10,9 @@ import '@github/markdown-toolbar-element';
 
 const MarkdownContainer = styled.span`
     padding-left: 5px;
-    @media (max-width: 575px) {
+    @media (max-width: 600px) {
         button {
-            padding: 0px 1px;
+            padding: 0px 1px !important;
         }
     }
 `;
