@@ -4,6 +4,9 @@ import { faHeart, faCheck, faPen, faTrash } from "@fortawesome/free-solid-svg-ic
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from 'styled-components';
 import './Note.scss';
+import { MAX_LIMIT_CHARACTERS } from '../../constants';
+import ReactMarkdown from 'react-markdown';
+import emoji from 'remark-emoji';
 
 const DefaultColor = '#5D9CEC';
 const DefaultTextColor = '#FFFFFF';
@@ -14,13 +17,24 @@ const Card = styled.div`
         width: 320px;
     }
     @media (max-width: 400px) {
-        width: 260px;
+        width: 280px;
+    }
+    .fav {
+        position: absolute;
+        z-index: 1;
+        top: 0.25rem;
+        font-size: 20px;
+        color: white;
+        left: 13.2rem;
+        @media (max-width: 575px) {
+            left: 15.5rem;
+        }
     }`;
 const CardContent = styled.div`
     position: relative;
     background: ${DefaultColor};
     color: ${DefaultTextColor};
-    padding: 1em;
+    padding: 0.875em;
     border-radius: 1rem;
     &:hover .multi-button, .multi-button:focus-within {
         width:10rem;
@@ -28,21 +42,23 @@ const CardContent = styled.div`
     }
     .field {
         width: -webkit-fill-available;
-        margin-bottom: 15px;
+        margin-top: 15px;
         padding: 10px 15px;
         border: 0;
         outline: none;
         border-radius: 8px;
-        font-size: 15px;
         height: auto;
         &.textarea {
-            margin-bottom: 0;
             resize: none;
             overflow: hidden;
         }
     }
+    h3 {
+        font-size: 1rem;
+    }
     h4 {
         font-weight: normal;
+        font-size: 0.875rem;
     }
 `;
 const Footer = styled.div`
@@ -57,8 +73,6 @@ const Note = props => {
     const [editable, setEditable] = useState(false);
     const title = useRef('');
     const description = useRef('');
-    
-    const maxCounter = 200;
     const [textCounter, setTextCounter] = useState(props.note.description.length);
 
     const makeNoteEditable = () => {
@@ -66,16 +80,18 @@ const Note = props => {
             const changesTitle = title.current.value !== props.note.title;
             const changesDescription = description.current.value !== props.note.description;
             if(changesTitle || changesDescription) {
-                props.editNote(props.note.id, title.current.value, description.current.value);
+                props.editNote(props.note.id, title.current.value, description.current.value, props.note.fav);
             }
         }
         setEditable(!editable);
     }
 
     return (
-        <Card className="card">
+        <Card className={props.note.fav ? 'card fav' : 'card'}>
             <div className="multi-button">
-                <button disabled={editable}>
+                <button className={props.note.fav ? 'selected' : ''}
+                disabled={editable}
+                onClick={() => props.editNote(props.note.id, props.note.title, props.note.description, !props.note.fav)}>
                     <FontAwesomeIcon icon={faHeart} />
                 </button>
                 <button className={editable ? 'confirm' : undefined} onClick={() => makeNoteEditable()}>
@@ -86,7 +102,11 @@ const Note = props => {
                 </button>
             </div>
 
-            <CardContent>
+            {props.note.fav && <div className="fav">
+                <FontAwesomeIcon icon={faHeart} />
+            </div>}
+
+            <CardContent className="cardContent">
                 {editable ?
                     <>
                         <input className="field" 
@@ -99,14 +119,14 @@ const Note = props => {
                         ref={description} 
                         defaultValue={props.note.description}
                         rows={props.note.description.length/15}
-                        maxLength={maxCounter}
+                        maxLength={MAX_LIMIT_CHARACTERS}
                         onChange={() => setTextCounter(description.current.value.length)}/>
-                        <TextCounter textCounter={textCounter} maxCounter={maxCounter}/>
+                        <TextCounter textCounter={textCounter}/>
                     </>
                 :
                     <>
                         <h3><span>{props.note.title}</span></h3>
-                        <h4><span>{props.note.description}</span></h4>
+                        <ReactMarkdown children={props.note.description} plugins={[emoji]}/>
                     </>
                 }
                 <Footer>{props.note.date}</Footer>

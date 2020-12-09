@@ -1,7 +1,22 @@
 $DefaultColor: #5D9CEC;
+$DefaultFavColor: #9b5dec;
 $DefaultTextColor: #FFFFFF;
 
 .card {
+    &.fav .multi-button button {
+        background: $DefaultFavColor;
+        &.selected:not([disabled]) {
+            color: $DefaultFavColor;
+            box-shadow:0 0 1rem -.25rem $DefaultFavColor;
+        }
+        &:hover {
+            color: $DefaultFavColor;
+            box-shadow:0 0 1rem -.25rem $DefaultFavColor;
+        }
+    }
+    &.fav .cardContent {
+        background: $DefaultFavColor;
+    }
     .multi-button {
         z-index:0;
         position: absolute;
@@ -27,10 +42,16 @@ $DefaultTextColor: #FFFFFF;
             cursor: pointer;
             transition: .25s cubic-bezier(0.25, 0, 0, 1);
             box-shadow:0 0 0rem -.25rem $DefaultColor;
+            &.selected {
+                background: $DefaultTextColor;
+                color: $DefaultColor;
+                box-shadow:0 0 1rem -.25rem $DefaultColor;
+            }
             &:disabled {
                 cursor: auto;
                 background: lightsteelblue;
                 color: white;
+                box-shadow: none;
                 &:hover {
                     background: lightsteelblue;
                     color: white;
@@ -90,5 +111,8 @@ $DefaultTextColor: #FFFFFF;
     &:hover .multi-button, .multi-button:focus-within {
         width:10rem;
         height:10rem;
+    }
+    &:hover .cardContent {
+        box-shadow: 0 1px 2px 1px rgba(60, 64, 67, 0.302), 0 1px 3px 1px rgba(60, 64, 67, 0.149)    ;
     }
 }
