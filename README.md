@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# React PWA with Redux - Take notes :pencil: :pushpin:
+![Alt Text](https://github.com/pGarciaAndres/PWAReduxNoteboard/blob/main/public/screenshot.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
